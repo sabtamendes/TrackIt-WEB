@@ -14,17 +14,16 @@ display:flex;
 justify-content: space-between;
 width:100%;
 height:65px;
-padding: 10px 18px;
 background-color: #126BA5;
 h1{
 color: #ffffff;
-margin-top:4px;
+margin:4%;
 font-size: 38px;
 font-family: 'Playball', cursive;
 }
 img{
     border-radius:50%;
-    margin-right:2%;
+    margin:2%;
     width:6vh;
     height:6vh;
 }
