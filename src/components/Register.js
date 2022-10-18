@@ -7,7 +7,7 @@ export default function Register() {
             <input placeholder="senha"></input>
             <input placeholder="nome"></input>
             <input placeholder="foto"></input>
-            <button>Entrar</button>
+            <button>Cadastrar</button>
             <StyledLink to={"/"}>Já tem uma conta? Faça login!</StyledLink>
         </Container>
     )
@@ -31,7 +31,8 @@ input{
 button{
     margin-left: -5%;
     margin-bottom:15%;
-    padding: 15px 118px;
+    width:38vh;
+    padding: 15px;
     font-weight:600;
     font-size: 15px;
     color: #FFFFFF;
@@ -42,7 +43,7 @@ button{
 `
 const StyledLink = styled(Link)`
     margin-top:5%;
-    margin-left:8.5%;
+    margin-left:12%;
     font-size:14px;
     color: #52B6FF;
 `
