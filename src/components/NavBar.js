@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import catioro from "../assets/catioro.jpg";
+import catioro from "../assets/images/catioro.jpg";
 export default function NavBar() {
     return (
         <Header>

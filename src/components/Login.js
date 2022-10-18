@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Logo from "../assets/images/image.jpg"
 export default function Login() {
     return (
         <Container>
+            <img src={Logo} alt="texto alternativo"/>
             <input placeholder="email"></input>
             <input placeholder="senha"></input>
             <button>Entrar</button>
@@ -12,7 +14,7 @@ export default function Login() {
 }
 
 const Container = styled.div`
-    margin-top: 50vh;
+    margin-top: 20vh;
     padding:15%;
 input{
    margin-left: -5%;
@@ -37,6 +39,9 @@ button{
     background-color:#52B6FF;
     border-radius: 5px;
     border:none;
+}
+img{
+   margin-left: 24px;
 }
 `
 const StyledLink = styled(Link)`

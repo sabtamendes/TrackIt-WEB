@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom"
+import Logo from "../assets/images/image.jpg"
+import { Link } from "react-router-dom";
 export default function Register() {
     return (
         <Container>
+            <img src={Logo} alt="texto alternativo" />
             <input placeholder="email"></input>
             <input placeholder="senha"></input>
             <input placeholder="nome"></input>
@@ -13,7 +15,7 @@ export default function Register() {
     )
 }
 const Container = styled.div`
-    margin-top: 35vh;
+    margin-top: 15vh;
     padding:15%;
 input{
    margin-left: -5%;
@@ -40,10 +42,13 @@ button{
     border-radius: 5px;
     border:none;
 }
+img{
+   margin-left: 24px;
+}
 `
 const StyledLink = styled(Link)`
     margin-top:5%;
-    margin-left:12%;
+    margin-left:8%;
     font-size:14px;
     color: #52B6FF;
 `
