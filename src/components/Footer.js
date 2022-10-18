@@ -4,7 +4,7 @@ export default function Footer() {
     return (
         <Baseboard>
             <HabitsLink to={"/habitos"}>Hábitos</HabitsLink>
-            <button>Hoje</button>
+            <TodayButton><ParagraphLink to={"/hoje"}>Hoje</ParagraphLink></TodayButton>
             <HistoricLink to={"/historico"}>Histórico</HistoricLink>
         </Baseboard>
     )
@@ -19,7 +19,7 @@ position:fixed;
 bottom:0;
 right:0;
 background-color:#FFFFFF;
-button{
+/* button{
     width:25%;
     height:12vh;
     border-radius:50%;
@@ -30,7 +30,7 @@ button{
     margin-bottom:5%;
     font-size: 16px;
     color:#FFFFFF;
-}
+} */
 `
 const HabitsLink = styled(Link)`
 text-decoration:none;
@@ -46,4 +46,22 @@ color:#52B6FF;
 font-size: 20px;
 margin-top:5%;
 margin-left: 5%;
+`
+const TodayButton = styled.button`
+   width:25%;
+    height:12vh;
+    border-radius:50%;
+    position:fixed;
+    top:85%;
+    border:none;
+    background-color: #52B6FF;
+    margin-bottom:5%;
+    font-size: 16px;
+    color:#FFFFFF;
+`
+const ParagraphLink = styled(Link)`
+ font-size: 16px;
+ color:#FFFFFF;
+text-decoration: none;
+font-family: 'Lexend Deca', sans-serif;
 `

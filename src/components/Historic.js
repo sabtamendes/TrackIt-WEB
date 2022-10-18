@@ -1,13 +1,18 @@
 import styled from "styled-components";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import React, { useState } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 export default function Historic() {
+    const [value, onChange] = useState(new Date());
     return (
         <>
             <NavBar />
             <Container>
                 <h1>Historico</h1>
                 <p>Em breve você poderá ver o histórico <br></br>dos seus hábitos aqui!</p>
+                <Calendar onChange={onChange} value={value} />
             </Container>
             <Footer />
         </>
