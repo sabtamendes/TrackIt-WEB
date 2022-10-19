@@ -6,8 +6,8 @@ import { useState } from "react";
 import axios from "axios";
 export default function Register() {
     const [form, setForm] = useState({ email: "", name: "", image: "", password: "" })
-    const [disabled, setDisabled] = useState(false)
-    const navigate = useNavigate()
+    const [disabled, setDisabled] = useState(false);
+    const navigate = useNavigate();
     function handleForm(e) {
         const { name, value } = e.target
         setForm({ ...form, [name]: value })
