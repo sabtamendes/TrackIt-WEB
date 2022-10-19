@@ -1,15 +1,83 @@
 import styled from "styled-components";
-import Logo from "../assets/images/image.jpg"
-import { Link } from "react-router-dom";
+import Logo from "../assets/images/image.jpg";
+import { BASE_URL } from "../constants/url";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 export default function Register() {
+    const [form, setForm] = useState({ email: "", name: "", image: "", password: "" })
+    const [disabled, setDisabled] = useState(false)
+    const navigate = useNavigate()
+    function handleForm(e) {
+        const { name, value } = e.target
+        setForm({ ...form, [name]: value })
+    }
+
+    function userRegister(e) {
+        e.preventDefault();
+
+        const body = { ...form }
+
+        axios.post(`${BASE_URL}/auth/sign-up`, body)
+            .then(res => {
+                setDisabled(true)
+                navigate("/")
+                console.log(res.data)
+            })
+            .catch(err => {
+                alert(err.response.data.message)
+                setDisabled(false)
+            })
+    }
+
     return (
         <Container>
             <img src={Logo} alt="texto alternativo" />
-            <input placeholder="email"></input>
-            <input placeholder="senha"></input>
-            <input placeholder="nome"></input>
-            <input placeholder="foto"></input>
-            <button>Cadastrar</button>
+            <form onSubmit={userRegister}>
+                <input
+                    name="email"
+                    value={form.email}
+                    onChange={handleForm}
+                    type="text"
+                    placeholder="email"
+                    required
+                    disabled={disabled}
+                >
+                </input>
+                <input
+                    name="password"
+                    value={form.password}
+                    onChange={handleForm}
+                    type="text"
+                    placeholder="senha"
+                    required
+                    disabled={disabled}
+                >
+                </input>
+                <input
+                    name="name"
+                    value={form.name}
+                    onChange={handleForm}
+                    type="text"
+                    placeholder="nome"
+                    required
+                    disabled={disabled}
+                >
+                </input>
+                <input
+                    name="image"
+                    value={form.image}
+                    onChange={handleForm}
+                    type="url"
+                    placeholder="foto"
+                    required
+                    disabled={disabled}
+                >
+                </input>
+
+                <button type="submit" disabled={disabled}>Cadastrar</button>
+            </form>
+
             <StyledLink to={"/"}>Já tem uma conta? Faça login!</StyledLink>
         </Container>
     )

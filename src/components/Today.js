@@ -58,8 +58,9 @@ display: flex;
 const Icon = styled.div`
 margin-top:-5px;
 ion-icon{
-    font-size: 75px;
+    font-size:75px;
     color:#E7E7E7;
+    /* background-color: red; */
 }
 `
 const Info = styled.div`
