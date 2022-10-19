@@ -1,10 +1,13 @@
 import styled from "styled-components";
-import catioro from "../assets/images/catioro.jpg";
+import React from "react";
+import { AuthContext } from "../providers/auth";
+
 export default function NavBar() {
+    const { image } = React.useContext(AuthContext);
     return (
         <Header>
             <h1>TrackIt</h1>
-            <img src={catioro} alt="texto alternativo" />
+            <img src={image} alt="texto alternativo" />
         </Header>
     )
 }

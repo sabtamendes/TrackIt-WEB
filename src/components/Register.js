@@ -2,15 +2,18 @@ import styled from "styled-components";
 import Logo from "../assets/images/image.jpg";
 import { BASE_URL } from "../constants/url";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
+import { AuthContext } from "../providers/auth";
 import axios from "axios";
 export default function Register() {
     const [form, setForm] = useState({ email: "", name: "", image: "", password: "" })
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
+    const { setImage } = React.useContext(AuthContext);
+   
     function handleForm(e) {
-        const { name, value } = e.target
-        setForm({ ...form, [name]: value })
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
     }
 
     function userRegister(e) {
@@ -21,7 +24,8 @@ export default function Register() {
         axios.post(`${BASE_URL}/auth/sign-up`, body)
             .then(res => {
                 setDisabled(true)
-                navigate("/")
+                navigate("/");
+                setImage(form.image);
                 console.log(res.data)
             })
             .catch(err => {

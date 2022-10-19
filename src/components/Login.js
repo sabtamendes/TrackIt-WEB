@@ -3,7 +3,7 @@ import { BASE_URL } from "../constants/url";
 import { PropagateLoader } from "react-spinners";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Logo from "../assets/images/image.jpg"
+import Logo from "../assets/images/image.jpg";
 import axios from "axios";
 
 export default function Login() {
@@ -11,7 +11,9 @@ export default function Login() {
     const [disabled, setDisabled] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-
+   
+    
+    
     function handleForm(e) {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
@@ -24,6 +26,7 @@ export default function Login() {
 
         axios.post(`${BASE_URL}/auth/login`, body)
             .then(res => {
+                console.log(res.data)
                 setDisabled(true);
                 setIsLoading(true);
                 setTimeout(() => {
@@ -37,7 +40,6 @@ export default function Login() {
             })
     }
 
-    console.log(form)
     return (
         <Container>
             <img src={Logo} alt="texto alternativo" />
@@ -54,7 +56,7 @@ export default function Login() {
                     name="password"
                     value={form.password}
                     onChange={handleForm}
-                    type="text"
+                    type="password"
                     placeholder="senha"
                     disabled={disabled}
                 />
@@ -70,8 +72,8 @@ export default function Login() {
                         : "Entrar"
                     }
                 </button>
-
             </form>
+
             <StyledLink to={"/cadastro"}>Não tem uma conta? Cadastre-se!</StyledLink>
 
         </Container>
