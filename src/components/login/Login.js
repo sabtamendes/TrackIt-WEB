@@ -1,43 +1,38 @@
-import styled from "styled-components";
-import { BASE_URL } from "../constants/url";
-import { PropagateLoader } from "react-spinners";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import Logo from "../assets/images/image.jpg";
-import axios from "axios";
+import Logo from "../../assets/images/image.jpg";
+import React, { useState } from "react";
+import { postForLogin } from "../../service/Service";
+import { PropagateLoader } from "react-spinners";
+import styled from "styled-components";
 
-export default function Login() {
-    const [form, setForm] = useState({ email: "", password: "" });
+
+export default function Login({ loginResponse, setLoginResponse }) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("")
     const [disabled, setDisabled] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+
     const navigate = useNavigate();
-   
-    
-    
-    function handleForm(e) {
-        const { name, value } = e.target;
-        setForm({ ...form, [name]: value });
-    }
 
     function userLogin(e) {
         e.preventDefault();
+        const body = {
+            email,
+            password
+        }
 
-        const body = { ...form }
-
-        axios.post(`${BASE_URL}/auth/login`, body)
+        postForLogin(body)
             .then(res => {
-                console.log(res.data)
-                setDisabled(true);
-                setIsLoading(true);
-                setTimeout(() => {
-                    setIsLoading(false);
-                    navigate("/hoje");
-                }, 3800)
+                setLoginResponse(res.data)
+                navigate("/hoje");
             })
             .catch(err => {
-                alert(err.response.data.message);
+                alert("Verifique se os dados foram digitados corretamente");
                 setDisabled(false);
             })
+
+        if (loginResponse === undefined) {
+            return setDisabled(true)
+        }
     }
 
     return (
@@ -46,31 +41,34 @@ export default function Login() {
             <form onSubmit={userLogin}>
                 <input
                     name="email"
-                    value={form.name}
-                    onChange={handleForm}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     type="text"
                     placeholder="email"
                     disabled={disabled}
+                    required
                 />
                 <input
                     name="password"
-                    value={form.password}
-                    onChange={handleForm}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     type="password"
                     placeholder="senha"
                     disabled={disabled}
+                    required
                 />
 
-                <button type="submit" disabled={disabled}>
-                    {isLoading
+                <button type="submit">
+                    {disabled
                         ?
                         <PropagateLoader
                             size={10}
                             aria-label="Loading Spinner"
                             data-testid="loader"
-                            color="#ffffff" />
-                        : "Entrar"
-                    }
+                            color="#ffffff"
+                            timeout={3000}
+                        />
+                        : "Entrar"}
                 </button>
             </form>
 

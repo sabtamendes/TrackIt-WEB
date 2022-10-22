@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import NavBar from "./NavBar";
-import Footer from "./Footer";
+import NavBar from "../topbar/NavBar";
+import Footer from "../footer/Footer";
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';

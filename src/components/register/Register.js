@@ -1,16 +1,22 @@
-import styled from "styled-components";
-import Logo from "../assets/images/image.jpg";
-import { BASE_URL } from "../constants/url";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
-import { AuthContext } from "../providers/auth";
-import axios from "axios";
+import Logo from "../../assets/images/image.jpg";
+import styled from "styled-components";
+import { postRegistration } from "../../service/Service";
+import { PropagateLoader } from "react-spinners";
+
+
+
+
+
 export default function Register() {
     const [form, setForm] = useState({ email: "", name: "", image: "", password: "" })
+    const [responseVerification, setResponseVerification] = useState(undefined)
     const [disabled, setDisabled] = useState(false);
+
     const navigate = useNavigate();
-    const { setImage } = React.useContext(AuthContext);
-   
+
+
     function handleForm(e) {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
@@ -21,17 +27,18 @@ export default function Register() {
 
         const body = { ...form }
 
-        axios.post(`${BASE_URL}/auth/sign-up`, body)
+        postRegistration(body)
             .then(res => {
-                setDisabled(true)
+                setResponseVerification(res.data)
                 navigate("/");
-                setImage(form.image);
-                console.log(res.data)
             })
             .catch(err => {
-                alert(err.response.data.message)
+                alert("Verifique se os campos foram preenchidos corretamente ")
                 setDisabled(false)
             })
+        if (responseVerification === undefined) {
+            return setDisabled(true)
+        }
     }
 
     return (
@@ -44,8 +51,8 @@ export default function Register() {
                     onChange={handleForm}
                     type="text"
                     placeholder="email"
-                    required
                     disabled={disabled}
+                    required
                 >
                 </input>
                 <input
@@ -54,8 +61,8 @@ export default function Register() {
                     onChange={handleForm}
                     type="text"
                     placeholder="senha"
-                    required
                     disabled={disabled}
+                    required
                 >
                 </input>
                 <input
@@ -64,8 +71,8 @@ export default function Register() {
                     onChange={handleForm}
                     type="text"
                     placeholder="nome"
-                    required
                     disabled={disabled}
+                    required
                 >
                 </input>
                 <input
@@ -74,12 +81,20 @@ export default function Register() {
                     onChange={handleForm}
                     type="url"
                     placeholder="foto"
-                    required
                     disabled={disabled}
+                    required
                 >
                 </input>
 
-                <button type="submit" disabled={disabled}>Cadastrar</button>
+                <button type="submit" disabled={disabled}>
+                    {disabled ? <PropagateLoader
+                        size={10}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        color="#ffffff"
+                        timeout={3000}
+                    /> : 'Cadastrar'}
+                </button>
             </form>
 
             <StyledLink to={"/"}>Já tem uma conta? Faça login!</StyledLink>

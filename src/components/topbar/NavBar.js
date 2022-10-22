@@ -1,19 +1,26 @@
 import styled from "styled-components";
-import React from "react";
-import { AuthContext } from "../providers/auth";
+import UserContext from "../../contexts/UserContext";
+import { useContext } from "react";
 
 export default function NavBar() {
-    const { image } = React.useContext(AuthContext);
+    const {
+        loginResponse
+    } = useContext(UserContext);
+
     return (
         <Header>
             <h1>TrackIt</h1>
-            <img src={image} alt="texto alternativo" />
+            <img src={loginResponse.image} alt="Imagem de perfil" />
         </Header>
     )
 }
 
 const Header = styled.div`
+position:fixed;
+top:0;
+right:0;
 display:flex;
+z-index:2;
 justify-content: space-between;
 width:100%;
 height:65px;
