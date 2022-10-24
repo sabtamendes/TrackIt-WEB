@@ -16,8 +16,7 @@ export default function Habits() {
     const [reset, setReset] = useState(false);
 
     const [habitoCriado, setHabitoCriado] = useState([]);
-
-    const [save, setSave] = useState(false);
+    const [loader, setLoader] = useState(false)
 
     const [habitCreationForm, setHabitCreationForm] = useState(false);
     const [days, setDays] = useState([]);
@@ -34,18 +33,15 @@ export default function Habits() {
 
     function openHabitCreationForm() {
         if (habitCreationForm === false) {
-            setHabitCreationForm(true)
+            setHabitCreationForm(true);
         } else {
-            setHabitCreationForm(false)
-        } if (save === true) {
-            setTimeout(() => {
-                setHabitCreationForm(false);
-                setDisabled(false)
-            }, 3000)
+            setHabitCreationForm(false);
+            setLoader(false);
+            setDisabled(false);
         }
     }
 
-    const { loginResponse } = useContext(UserContext);
+    const { loginResponse} = useContext(UserContext);
 
     const config = {
         headers: {
@@ -54,29 +50,40 @@ export default function Habits() {
     }
 
     function create() {
+        setLoader(true);
+        setDisabled(false);
 
         const body = { name: name, days: days }
 
-        createHabit(config, body)
-            .then((res) => {
-                console.log(res.data)
-                setHabitoCriado(res.data);
-                setDisabled(false);
-                openHabitCreationForm();
-                setName("");
-                setDays([]);
-                setReset(true);
-                showHabits();
-                setSave(true);
-                setTimeout(() => {
-                    setReset(false);
-                }, 0)
+        if (days.length > 0 || name !== "" && (loader === true)) {
+            setDisabled(true);
+        }
 
-            })
-            .catch((err) => {
-                alert("Preencha corretamente os campos")
-                setDisabled(false);
-            })
+        if (days.length === 0 || name === "") {
+            alert("Preencha os campos corretamente!")
+            setLoader(false);
+
+        } else {
+
+            createHabit(config, body)
+                .then((res) => {
+                    setHabitoCriado(res.data);
+                    openHabitCreationForm();
+                    setName("");
+                    setDays([]);
+                    setReset(true);
+                    showHabits();
+                    setTimeout(() => {
+                        setReset(false);
+                    }, 0)
+                })
+                .catch((err) => {
+                    alert("Preencha corretamente os campos")
+                    setDisabled(false);
+                    setLoader(false);
+                })
+        }
+
     }
 
     function showHabits() {
@@ -89,40 +96,44 @@ export default function Habits() {
     }
 
     useEffect(showHabits, []);
-    console.log(save)
-    console.log(habitsArray)
+
     return (
         <>
             <NavBar />
             <Container>
                 <h2>Meus hábitos</h2>
-                <AddHabitButton onClick={openHabitCreationForm}>+</AddHabitButton>
+
+                <AddHabitButton data-identifier="create-habit-btn" onClick={openHabitCreationForm}>+</AddHabitButton>
+
                 <AddHabitBox habitCreationForm={habitCreationForm}>
+
                     <Input placeholder="nome do hábito" value={name} onChange={(e) => setName(e.target.value)} disabled={disabled} required />
+
                     <Weekdays>
-                        {!reset ? weekdays.map((weekday, index) => (<Weekday key={index} name={name} save={save} setSave={setSave} weekday={weekday} index={index} setDays={setDays} days={days} setDisabled={setDisabled} disabled={disabled} />)) : ""}
+                        {!reset ? weekdays.map((weekday, index) => (<Weekday key={index} name={name} weekday={weekday} index={index} setDays={setDays} days={days} setDisabled={setDisabled} disabled={disabled} />)) : ""}
                     </Weekdays>
-                    <h5 onClick={() => openHabitCreationForm()}>Cancelar</h5>
-                    <SaveButton save={save} onClick={create} disabled={disabled}>
-                        {save ?
+
+                    <h5 data-identifier="cancel-habit-create-btn" onClick={openHabitCreationForm} >Cancelar</h5>
+
+                    <SaveButton data-identifier="save-habit-create-btn" onClick={create} disabled={disabled} >
+                        {loader ?
                             <BeatLoader
                                 size={10}
                                 aria-label="Loading Spinner"
                                 data-testid="loader"
                                 color="#ffffff"
-                            // timeout={3000}
                             />
-                            : "Salvar"}
+                            : "Salvar"
+                        }
                     </SaveButton>
                 </AddHabitBox>
+
                 {habitsArray.length >= 1 ?
                     habitsArray.map((habit) =>
                         <Habit habit={habit} key={habit.id} showHabits={showHabits} weekdays={weekdays} />
                     ) :
-                    <p>Você não tem nenhum hábito cadastrado ainda. Adicione para começar a trackear!</p>}
-
-
-
+                    <p data-identifier="no-habit-message">Você não tem nenhum hábito cadastrado ainda. Adicione para começar a trackear!</p>
+                }
 
             </Container>
             <Footer />
@@ -130,36 +141,29 @@ export default function Habits() {
     )
 }
 
-function Weekday({ weekday, index, setDays, days, disabled, setDisabled, name, save, setSave }) {
+function Weekday({ weekday, index, setDays, days, disabled }) {
     const [selected, setSelected] = useState(false);
 
     function select() {
         if (selected === false) {
             setSelected(true);
-
             setDays([...days, weekday.id])
         } else {
             setSelected(false);
             setDays(days.filter(day => day !== weekday.id))
-            setDisabled(true)
-        } if (name === "" || save === false || selected === false) {
-            setSave(false)
-        } else {
-            setSave(true)
         }
     }
-
     return (
-        <Day key={index} onClick={select} selected={selected} disabled={disabled}>{weekday.name}</Day>
+        <Day data-identifier="week-day-btn" key={index} onClick={select} selected={selected} disabled={disabled}>{weekday.name}</Day>
     )
 }
 
 export const Container = styled.div`
-padding: 98px 18px 0 17px;
+padding: 98px 18px 0 13px;
 margin-bottom: 80px;
 background-color: #E5E5E5;
 width:100%;
-height: 90vh;
+height: 200vh;
 h2{
     color: #126ba5;
     font-size: 23px;
@@ -186,7 +190,7 @@ font-size: 27px;
 font-weight:bold;
 `
 export const AddHabitBox = styled.div`
-width:340px;
+width:330px;
 height:180px;
 background-color: #ffffff;
 border-radius: 5px;

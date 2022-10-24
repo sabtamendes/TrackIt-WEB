@@ -3,17 +3,18 @@ import { Link } from "react-router-dom";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import ProgressContext from "../../contexts/ProgressContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 export default function Footer() {
     const {
         progress
     } = useContext(ProgressContext);
-console.log(progress)
+
+
     return (
 
         <Baseboard>
-            <Link to={"/habitos"}>Hábitos</Link>
+            <Link to={"/habitos"} data-identifier="habit-page-action">Hábitos</Link>
             <Link to={"/hoje"}>
                 <ButtonProgress>
                     <CircularProgressbar
@@ -30,7 +31,7 @@ console.log(progress)
                     />
                 </ButtonProgress>
             </Link>
-            <Link to={"/historico"}>Histórico</Link>
+            <Link to={"/historico"} data-identifier="historic-page-action">Histórico</Link>
         </Baseboard >
     )
 }

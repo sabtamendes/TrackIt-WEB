@@ -39,6 +39,7 @@ export default function Login({ loginResponse, setLoginResponse }) {
             <img src={Logo} alt="texto alternativo" />
             <form onSubmit={userLogin}>
                 <input
+                    data-identifier="input-email"
                     name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -48,6 +49,7 @@ export default function Login({ loginResponse, setLoginResponse }) {
                     required
                 />
                 <input
+                    data-identifier="input-password"
                     name="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -57,7 +59,7 @@ export default function Login({ loginResponse, setLoginResponse }) {
                     required
                 />
 
-                <button type="submit">
+                <button data-identifier="login-btn" type="submit">
                     {disabled
                         ?
                         <BeatLoader
@@ -71,7 +73,7 @@ export default function Login({ loginResponse, setLoginResponse }) {
                 </button>
             </form>
 
-            <StyledLink to={"/cadastro"}>Não tem uma conta? Cadastre-se!</StyledLink>
+            <StyledLink data-identifier="sign-up-action" to={"/cadastro"}>Não tem uma conta? Cadastre-se!</StyledLink>
 
         </Container>
     )

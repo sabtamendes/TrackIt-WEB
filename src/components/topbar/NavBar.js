@@ -10,7 +10,7 @@ export default function NavBar() {
     return (
         <Header>
             <h1>TrackIt</h1>
-            <img src={loginResponse.image} alt="Imagem de perfil" />
+            <img data-identifier="avatar" src={loginResponse.image} alt="Imagem de perfil" />
         </Header>
     )
 }

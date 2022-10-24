@@ -42,6 +42,7 @@ export default function Register() {
             <img src={Logo} alt="texto alternativo" />
             <form onSubmit={userRegister}>
                 <input
+                    data-identifier="input-email"
                     name="email"
                     value={form.email}
                     onChange={handleForm}
@@ -52,6 +53,7 @@ export default function Register() {
                 >
                 </input>
                 <input
+                    data-identifier="input-password"
                     name="password"
                     value={form.password}
                     onChange={handleForm}
@@ -62,6 +64,7 @@ export default function Register() {
                 >
                 </input>
                 <input
+                    data-identifier="input-name"
                     name="name"
                     value={form.name}
                     onChange={handleForm}
@@ -72,6 +75,7 @@ export default function Register() {
                 >
                 </input>
                 <input
+                    data-identifier="input-photo"
                     name="image"
                     value={form.image}
                     onChange={handleForm}
@@ -95,7 +99,7 @@ export default function Register() {
                 </button>
             </form>
 
-            <StyledLink to={"/"}>Já tem uma conta? Faça login!</StyledLink>
+            <StyledLink data-identifier="back-to-login-action" to={"/"}>Já tem uma conta? Faça login!</StyledLink>
         </Container>
     )
 }

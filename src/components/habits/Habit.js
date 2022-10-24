@@ -8,8 +8,9 @@ import { useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import { deleteHabits } from "../../service/Service";
 
+
 export default function HabitUser({ habit, weekdays, showHabits }) {
-   console.log(habit)
+
     const {
         id,
         name,
@@ -44,12 +45,12 @@ export default function HabitUser({ habit, weekdays, showHabits }) {
             ]
         })
     }
-console.log(name)
+
     return (
         <Habit>
-            <h3>{name}</h3>
-            <Weekdays>
-                <span onClick={deleteUserHabit}>
+            <h3 data-identifier="input-habit-name">{name}</h3>
+            <Weekdays data-identifier="habit-name">
+                <span onClick={deleteUserHabit} data-identifier="delete-habit-btn">
                     <IoIosTrash size="30px" />
                 </span>
                 {weekdays.map((weekday, index) => (<Day key={index} selected={days.includes(weekday.id) ? true : false}>{weekday.name}</Day>))}
@@ -58,7 +59,7 @@ console.log(name)
     )
 }
 const Habit = styled.div`
-width: 340px;
+width: 330px;
 height: 90px;
 background-color: #ffffff;
 border-radius: 5px;

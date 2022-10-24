@@ -33,7 +33,7 @@ export default function HabitSituation({ habit, showHabitsToday }) {
     return (
         <Card habit={habit}>
             <HabitTitle>{habit.name}</HabitTitle>
-            <button>
+            <button data-identifier="done-habit-btn">
                 <IoIosCheckmark
                     color={"#ffffff"}
                     size="60px"
@@ -41,10 +41,11 @@ export default function HabitSituation({ habit, showHabitsToday }) {
                     onClick={habitsUser}
                 />
             </button>
-            <Records color={habit.currentSequence === habit.highestSequence && habit.done ? "#8fc549" : "#666666"}>
-                <p>Sequência atual: <span>{habit.currentSequence !== 1 ? "dias" : "dia"}</span></p>
-                <p>Seu recorde: <span>{habit.highestSequence}{habit.highestSequence !== 1 ? "dias" : "dia"}</span></p>
-            </Records>
+          
+            <Info data-identifier="today-infos" color={habit.currentSequence === habit.highestSequence && habit.done ? "#8fc549" : "#666666"}>
+                <p>Sequência atual: <span> {habit.highestSequence} {habit.currentSequence > 1 ? " dias" : " dia"} </span> </p>
+                <p>Seu recorde: <span> {habit.highestSequence} {habit.highestSequence > 1 ? "dias" : "dia"} </span> </p>
+            </Info>
         </Card>
     )
 }
@@ -75,7 +76,7 @@ color: #666666;
 padding-top:12px;
 padding-left:17px;
 `
-export const Records = styled.h4`
+export const Info = styled.h4`
 font-size: 13px;
 color: #666666;
 padding-left:17px;
