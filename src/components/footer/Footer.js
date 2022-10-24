@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import ProgressContext from "../../contexts/ProgressContext";
 import { useContext } from "react";
@@ -9,72 +9,56 @@ export default function Footer() {
     const {
         progress
     } = useContext(ProgressContext);
-
+console.log(progress)
     return (
 
         <Baseboard>
-            <HabitsLink to={"/habitos"}>Hábitos</HabitsLink>
-
-            <ButtonProgress
-                value={progress}
-                background
-                backgroundPadding={6}
-                styles={buildStyles({
-                    backgroundColor: "#3e98c7",
-                    textColor: "#ffffff",
-                    pathColor: "#ffffff",
-                    trailColor: "transparent",
-                })}
-            >
-                <ParagraphLink to={"/hoje"}>Hoje</ParagraphLink>
-            </ButtonProgress>
-
-            <HistoricLink to={"/historico"}>Histórico</HistoricLink>
+            <Link to={"/habitos"}>Hábitos</Link>
+            <Link to={"/hoje"}>
+                <ButtonProgress>
+                    <CircularProgressbar
+                        value={progress}
+                        text={`Hoje`}
+                        background
+                        backgroundPadding={6}
+                        styles={buildStyles({
+                            backgroundColor: "#52b6ff",
+                            textColor: "#ffffff",
+                            pathColor: "#ffffff",
+                            trailColor: "transparent",
+                        })}
+                    />
+                </ButtonProgress>
+            </Link>
+            <Link to={"/historico"}>Histórico</Link>
         </Baseboard >
     )
 }
 const Baseboard = styled.div`
-display:flex;
-justify-content:center;
-width:100%;
-height:10%;
-font-family: 'Lexend Deca', sans-serif;
-position:fixed;
-z-index: 1;
+width: 100%;
+height: 70px;
+position: fixed;
+z-index: 2;
 bottom:0;
 right:0;
-background-color:#FFFFFF;
+left:0;
+display:flex;
+justify-content: space-between;
+align-items:center;
+background-color: #ffffff;
+padding: 0 30px 0 38px;
+a{
+    text-decoration: none;
+    font-size:18px;
+    font-family: 'Lexend Deca', sans-serif;
+    color: #52b6ff;
+}
 `
-const HabitsLink = styled(Link)`
-text-decoration:none;
-color:#52B6FF;
-font-size: 20px;
-margin-right: 30%;
-margin-top:5%;
-`
-const HistoricLink = styled(Link)`
-text-decoration:none;
-color:#52B6FF;
-font-size: 20px;
-margin-top:5%;
-margin-left: 5%;
-`
-const ParagraphLink = styled(Link)`
- font-size: 16px;
- color:#FFFFFF;
-text-decoration: none;
-font-family: 'Lexend Deca', sans-serif;
-position:fixed;
-left: 45%;
-top:90%;
-`
-const ButtonProgress = styled(CircularProgressbarWithChildren)`
-    background-color: #52B6FF; 
-    position:fixed;
-    top:85%;
-    left: 135px;
-    width:25vw;
-    background-color: #52B6FF;
-    border-radius:50%;
-    border:none;
+const ButtonProgress = styled.div`
+position:absolute;
+right: 146px;
+bottom: 15px;
+border-radius: 50px;
+width:86px;
+height:86px;
 `

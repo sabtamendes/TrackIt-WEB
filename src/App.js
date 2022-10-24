@@ -11,7 +11,7 @@ import { useState } from "react";
 
 function App() {
   const [loginResponse, setLoginResponse] = useState(undefined);
-  const [progress, setProgress] = useState("60");
+  const [progress, setProgress] = useState(0);
 
   return (
     <UserContext.Provider value={{ loginResponse, setLoginResponse }} >

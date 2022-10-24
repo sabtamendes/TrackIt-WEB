@@ -3,11 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/image.jpg";
 import styled from "styled-components";
 import { postRegistration } from "../../service/Service";
-import { PropagateLoader } from "react-spinners";
-
-
-
-
+import { BeatLoader } from "react-spinners";
 
 export default function Register() {
     const [form, setForm] = useState({ email: "", name: "", image: "", password: "" })
@@ -87,13 +83,15 @@ export default function Register() {
                 </input>
 
                 <button type="submit" disabled={disabled}>
-                    {disabled ? <PropagateLoader
-                        size={10}
-                        aria-label="Loading Spinner"
-                        data-testid="loader"
-                        color="#ffffff"
-                        timeout={3000}
-                    /> : 'Cadastrar'}
+                    {disabled ?
+                        <BeatLoader
+                            size={12}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                            color="#ffffff"
+                            timeout={3000}
+                        />
+                        : 'Cadastrar'}
                 </button>
             </form>
 

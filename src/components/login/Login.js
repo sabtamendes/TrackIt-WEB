@@ -2,9 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/image.jpg";
 import React, { useState } from "react";
 import { postForLogin } from "../../service/Service";
-import { PropagateLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
 import styled from "styled-components";
-
 
 export default function Login({ loginResponse, setLoginResponse }) {
     const [email, setEmail] = useState("");
@@ -61,8 +60,8 @@ export default function Login({ loginResponse, setLoginResponse }) {
                 <button type="submit">
                     {disabled
                         ?
-                        <PropagateLoader
-                            size={10}
+                        <BeatLoader
+                            size={12}
                             aria-label="Loading Spinner"
                             data-testid="loader"
                             color="#ffffff"
@@ -97,7 +96,6 @@ input{
 img{
    margin-left: 24px;
 }
-
 button{
     display: flex;
     justify-content: center;

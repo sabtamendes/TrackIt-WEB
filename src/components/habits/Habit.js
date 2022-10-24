@@ -9,6 +9,7 @@ import UserContext from "../../contexts/UserContext";
 import { deleteHabits } from "../../service/Service";
 
 export default function HabitUser({ habit, weekdays, showHabits }) {
+   console.log(habit)
     const {
         id,
         name,
@@ -43,7 +44,7 @@ export default function HabitUser({ habit, weekdays, showHabits }) {
             ]
         })
     }
-
+console.log(name)
     return (
         <Habit>
             <h3>{name}</h3>
@@ -58,7 +59,7 @@ export default function HabitUser({ habit, weekdays, showHabits }) {
 }
 const Habit = styled.div`
 width: 340px;
-height: 91px;
+height: 90px;
 background-color: #ffffff;
 border-radius: 5px;
 padding: 13px 11px 0 17px;

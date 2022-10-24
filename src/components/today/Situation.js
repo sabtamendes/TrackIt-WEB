@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import { IoIosCheckmark } from "react-icons/io";
 import { useContext } from "react";
-import UserContext from "../../contexts/UserContext";
 import { habitState } from "../../service/Service";
+import UserContext from "../../contexts/UserContext";
 
 export default function HabitSituation({ habit, showHabitsToday }) {
-   console.log(habit)
-    const {
-        loginResponse
-    } = useContext(UserContext);
+
+    const { loginResponse } = useContext(UserContext);
 
     function habitsUser() {
         const config = {
@@ -34,7 +32,6 @@ export default function HabitSituation({ habit, showHabitsToday }) {
 
     return (
         <Card habit={habit}>
-            {console.log(habit)}
             <HabitTitle>{habit.name}</HabitTitle>
             <button>
                 <IoIosCheckmark
@@ -58,26 +55,30 @@ height:94px;
 background-color: #ffffff;
 border: 1px solid #e7e7e7;
 border-radius:5px;
-margin: 5% 5% 5% auto;
-padding: 5% 2%;
-display: flex;
+margin-bottom: 10px;
+padding: 13px 12 0 18px;
+position:relative;
 button{
     width:69px;
     height: 69px;
     background-color: ${({ habit }) => habit.done ? "#8fc549" : "#ebebeb"};
     position:absolute;
+    border:none;
     top:13px;
     right:13px;
 }
 `
 export const HabitTitle = styled.h3`
-font-size:19.98px;
+font-size:20px;
 margin-bottom:8px;
 color: #666666;
+padding-top:12px;
+padding-left:17px;
 `
 export const Records = styled.h4`
-font-size: 12.98px;
+font-size: 13px;
 color: #666666;
+padding-left:17px;
 span{
     color:${props => props.color}
 }
