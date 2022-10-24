@@ -41,7 +41,7 @@ export default function Habits() {
         }
     }
 
-    const { loginResponse} = useContext(UserContext);
+    const { loginResponse } = useContext(UserContext);
 
     const config = {
         headers: {
@@ -51,17 +51,13 @@ export default function Habits() {
 
     function create() {
         setLoader(true);
-        setDisabled(false);
-
+        setDisabled(true);
         const body = { name: name, days: days }
-
-        if (days.length > 0 || name !== "" && (loader === true)) {
-            setDisabled(true);
-        }
 
         if (days.length === 0 || name === "") {
             alert("Preencha os campos corretamente!")
             setLoader(false);
+            setDisabled(false);
 
         } else {
 
